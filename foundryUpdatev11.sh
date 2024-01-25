@@ -19,7 +19,7 @@ sudo apt upgrade
 # Set pm2 to use the upgraded version of NodeJS and set it to run on start again.
 npm rebuild -g pm2
 pm2 startup
-sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u ubuntu --hp /home/ubuntu
+sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u opc --hp /home/opc
 # Restart any previously running pm2 managed processes.
 pm2 start all
 pm2 save
