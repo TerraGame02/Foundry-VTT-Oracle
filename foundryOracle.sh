@@ -20,7 +20,7 @@ sudo npm update -g pm2
 sudo pm2 update
 #allow pm2 to start and stop after reboot
 pm2 startup
-sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u ubuntu --hp /home/ubuntu
+sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u opc --hp /home/opc
 # make the needed directory
 mkdir ~/foundry
 mkdir ~/foundryuserdata
@@ -37,7 +37,7 @@ wget --output-document ~/foundry/foundryvtt.zip "$tdurl"
 unzip ~/foundry/foundryvtt.zip -d ~/foundry/
 rm ~/foundry/foundryvtt.zip
 # Set up pm2 to start foundry vtt at system startup or reboot.
-pm2 start "node /home/ubuntu/foundry/resources/app/main.js --dataPath=/home/ubuntu/foundryuserdata" --name foundry
+pm2 start "node /home/opc/foundry/resources/app/main.js --dataPath=/home/opc/foundryuserdata" --name foundry
 pm2 save
 # Setting up Caddy reverse proxy
 curl -o Caddyfile https://raw.githubusercontent.com/aco-rt/Foundry-VTT-Oracle/main/Caddyfile
@@ -48,9 +48,9 @@ read vtturl
 sudo sed -i "s/your.hostname.com/$vtturl/g" /etc/caddy/Caddyfile
 sudo service caddy restart
 # Edit foundry options.json file to allow connections through proxy and 443
-sed -i 's/"proxyPort": null/"proxyPort": 443/g' /home/ubuntu/foundryuserdata/Config/options.json
-sed -i 's/"proxySSL": false/"proxySSL": true/g' /home/ubuntu/foundryuserdata/Config/options.json
-sed -i 's/"hostname": null/"hostname": "$vtturl"/g' /home/ubuntu/foundryuserdata/Config/options.json
+sed -i 's/"proxyPort": null/"proxyPort": 443/g' /home/opc/foundryuserdata/Config/options.json
+sed -i 's/"proxySSL": false/"proxySSL": true/g' /home/opc/foundryuserdata/Config/options.json
+sed -i 's/"hostname": null/"hostname": "$vtturl"/g' /home/opc/foundryuserdata/Config/options.json
 # Restarting the system to complete installation
 sleep 2
 clear
